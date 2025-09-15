@@ -128,7 +128,7 @@ namespace WinForms_Calculadora
 
         private void btnIgual_Click(object sender, EventArgs e)
         {
-            object convert = null;
+
             switch (operacaoselecionada)
             {
                 case Operacao.Adicao:
@@ -141,6 +141,11 @@ namespace WinForms_Calculadora
                     Resultado = valor * Convert.ToDecimal(txtResultado.Text);
                     break;
                 case Operacao.divisao:
+                    if (Convert.ToDecimal(txtResultado.Text) == 0)
+                    {
+                        MessageBox.Show("Não é possível dividir por zero!");
+                        return;
+                    }
                     Resultado = valor / Convert.ToDecimal(txtResultado.Text);
                     break;
 
@@ -149,7 +154,7 @@ namespace WinForms_Calculadora
 
 
             }
-            txtResultado.Text = convert.ToString();
+            txtResultado.Text = Resultado.ToString();
         }
 
         private void btnVirgula_Click(object sender, EventArgs e)
@@ -157,7 +162,12 @@ namespace WinForms_Calculadora
 
 
             if (!txtResultado.Text.Contains(","))
-                TextResultado.text += ",";
+                txtResultado.Text += ",";
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            txtResultado.Text = "";
         }
     }
 }
